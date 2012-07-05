@@ -9,7 +9,7 @@
   - disable:
 
     - /rate <= complete
-    - add:
+  - add:
 
     - /_Graphox_news <= in progress
 
