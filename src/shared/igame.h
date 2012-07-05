@@ -123,114 +123,7 @@ namespace server
     extern int masterport();
     extern void processmasterinput(const char *cmd, int cmdlen, const char *args);
     extern bool ispaused();
-	
-	extern const char *modename(int, const char *unknown = "unknown");
-	extern const char *mastermodename(int, const char *unknown = "unknown");
 }
-
-struct serverinfo
-{
-    string name, map, sdesc;
-    int port, numplayers, ping, resolved, lastping;
-    int mastermode;
-	int mode;
-	vector<int> attr;
-    ENetAddress address;
-    bool keep;
-    const char *password;
-	void * extinfo;
-
-    serverinfo()
-     : port(-1), numplayers(0), ping(INT_MAX), resolved(0), lastping(-1), keep(false), password(NULL), extinfo(NULL)
-    {
-        name[0] = map[0] = sdesc[0] = '\0';
-    }
-
-    ~serverinfo()
-    {
-        DELETEA(password);
-        delete extinfo;
-    }
-
-    void reset()
-    {
-        lastping = -1;
-    }
-
-    void checkdecay(int decay)
-    {
-        if(lastping >= 0 && totalmillis - lastping >= decay)
-        {
-            ping = INT_MAX;
-            numplayers = 0;
-            lastping = -1;
-        }
-        if(lastping < 0) lastping = totalmillis;
-    }
-
-    void addping(int rtt, int millis)
-    {
-        if(millis >= lastping) lastping = -1;
-        if(ping == INT_MAX) ping = rtt;
-        else ping = (ping*4 + rtt)/5;
-    };
-
-    static int compare(serverinfo **ap, serverinfo **bp) //a_teammate 26.02.2011
-    {
-        serverinfo *a = *ap, *b = *bp;
-        bool ac = server::servercompatible(a->name, a->sdesc, a->map, a->ping, a->attr, a->numplayers),
-             bc = server::servercompatible(b->name, b->sdesc, b->map, b->ping, b->attr, b->numplayers);
-        if(ac > bc) return -1;
-        if(bc > ac) return 1;
-
-        if(a->keep > b->keep) return -1;
-        if(a->keep < b->keep) return 1;
-
-#ifndef _RPGGAME_
-		if(sortbythat == 1){ /*ping*/
-				if(a->ping > b->ping) return 1;
-				if(a->ping < b->ping) return -1;
-		}
-		if(sortbythat == 2){ /*players*/
-				if(a->numplayers < b->numplayers) return 1;
-				if(a->numplayers > b->numplayers) return -1;
-		}
-		if(sortbythat == 3){ /*map*/
-				int cmpall = strcmp(a->map, b->map);
-				if(cmpall != 0) return cmpall;
-		}
-		if(sortbythat == 4){ /*mode*/
-			int cmp = strcmp(a->attr.length()>=5 ? server::modename(a->attr[1]) : "", b->attr.length()>=5 ? server::modename(b->attr[1]) : "");
-			if(cmp != 0) return cmp;
-		}
-		if(sortbythat == 5){ /*master*/
-			int cmp = strcmp(a->attr.length()>=5 ? server::mastermodename(a->attr[4]) : "",b->attr.length()>=5 ? server::mastermodename(b->attr[4]) : "");
-			if(cmp != 0) return cmp;
-		}
-		if(sortbythat == 6){ /*host*/
-		        int cmp = strcmp(a->name, b->name);
-				if(cmp != 0) return cmp;
-		}
-		if(sortbythat == 7){ /*port*/
-				if(a->port < b->port) return -1;
-				if(a->port > b->port) return 1;
-		}
-		if(sortbythat == 8){ /*description*/
-		        int cmp = strcmp(a->sdesc, b->sdesc);
-				if(cmp != 0) return cmp;
-		}
-#endif
-        if(a->numplayers < b->numplayers) return 1;
-        if(a->numplayers > b->numplayers) return -1;
-        if(a->ping > b->ping) return 1;
-        if(a->ping < b->ping) return -1;
-        int cmp = strcmp(a->name, b->name);
-        if(cmp != 0) return cmp;
-        if(a->port < b->port) return -1;
-        if(a->port > b->port) return 1;
-        return 0;
-    }
-};
 
 namespace GraphOX {
     extern void sehud(int w, int h);
@@ -257,10 +150,5 @@ namespace GraphOX {
     extern void error(const char *msg, ...);
     extern void Auto(const char *msg, ...);
     extern void info(const char *msg, ...);
-
-	// advanced server browser
-	extern void serverextinfo(g3d_gui *cgui, serverinfo * si);
-    extern int serverfilter(serverinfo * si);
-    extern void extinforequest(ENetSocket &pingsock, ENetAddress & address,serverinfo * si);
-    extern bool extinfoparse(ucharbuf & p, serverinfo * si);
 }
+

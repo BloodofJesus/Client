@@ -1389,7 +1389,7 @@ namespace game
 	    break;
 
 	case 3:
-	    if(g->buttonf("%s ", 0xFFFFDD, NULL, attr.length()>=2 ? server::modename(attr[1]) : "")&G3D_UP) return true;
+	    if(g->buttonf("%s ", 0xFFFFDD, NULL, attr.length()>=2 ? server::modename(attr[1], "") : "")&G3D_UP) return true;
 	    break;
 
 	case 4:

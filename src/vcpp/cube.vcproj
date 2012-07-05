@@ -2394,19 +2394,6 @@
 					/>
 				</FileConfiguration>
 			</File>
-			<File
-				RelativePath="..\graphox\serversearcher.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						PrecompiledHeaderThrough="graphox.h"
-						PrecompiledHeaderFile=".\Release/graphox.pch"
-					/>
-				</FileConfiguration>
-			</File>
 		</Filter>
 	</Files>
 	<Globals>
