@@ -20,4 +20,4 @@
 
 - menu transition change <= in progress
 
-- server searcher <= in progress
+- advanced server browser <= buggily complete (needs reading over)
