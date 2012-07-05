@@ -17,5 +17,6 @@
 
 - login system <= in progress
 
+- menu transition change <= in progress
 
-
+- server searcher <= in progress
