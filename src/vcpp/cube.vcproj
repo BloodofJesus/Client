@@ -2395,7 +2395,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\serversearcher.cpp"
+				RelativePath="..\graphox\serversearcher.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
