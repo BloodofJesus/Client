@@ -1,0 +1,21 @@
+- implement a_teammate's scripts and code
+ <= in progress
+
+- fix up menus (linux only ?) <= complete
+
+
+- update, add and remove some commands
+
+  - disable:
+
+    - /rate <= complete
+    - add:
+
+    - /_Graphox_news <= in progress
+
+- fix server sorting (how'd that break ??) <= complete
+
+- login system <= in progress
+
+
+
